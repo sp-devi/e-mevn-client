@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-container fill-height fluid>
+    <v-container fill-height fluid flex-start>
       <v-row align="center" justify="center">
-        <v-col cols="6">
+        <v-col cols="6" align="center" justify="center">
           <v-row>
             <v-col>
               <v-card width="500px">
@@ -15,7 +15,7 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-              <v-card-actions>
+              <v-card-actions  class="justify-center">
                 <v-btn color="success" @click="findName(nameInput)">Find</v-btn>
                 <v-btn color="success" @click="addName(nameInput)">Add</v-btn>
               </v-card-actions>
