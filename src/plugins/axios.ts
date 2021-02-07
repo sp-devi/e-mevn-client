@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "http://localhost:3010";
+const URL = "http://localhost:3000";
 
 const restApiClient = axios.create({
     baseURL: URL,

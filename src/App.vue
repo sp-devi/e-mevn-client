@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-container fill-height>
+    <v-container fill-height fluid>
       <v-row align="center" justify="center">
-        <v-col cols="12" class="justify-center">
-          <v-row align="center" justify="center">
-            <v-col cols="6" class="justify-center">
+        <v-col cols="6">
+          <v-row>
+            <v-col>
               <v-card width="500px">
                 <v-card-title>
                   <h1>Name Finder</h1>
@@ -21,7 +21,11 @@
               </v-card-actions>
             </v-col>
           </v-row>
-          <Name :names="names"></Name>
+          <v-row>
+            <v-col>
+              <Name :names="names"></Name>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -32,7 +36,6 @@
 import Vue from "vue";
 import Name from "./components/Name.vue";
 import { mapActions } from "vuex";
-import axios from "axios";
 
 export default Vue.extend({
   name: "App",
@@ -49,15 +52,28 @@ export default Vue.extend({
     ...mapActions(["getName"]),
     async findName(name: string) {
       const responseName = await this.getName(name);
-      const namex = [{ name: responseName.data.name }];
-      this.$data.names = namex;
+      const result = responseName.data.name;
+      if (typeof result != undefined && result) {
+        const names = [{ name: result }];
+        this.$data.names = names;
+      } else {
+        alert("No name found");
+      }
+      const names = [{ name: "re" }];
+      this.$data.names = names;
     },
     ...mapActions(["insertName"]),
     async addName(name: string) {
+      if (!name) {
+        alert("Please input a name.");
+        return;
+      }
       const responseName = await this.insertName(name);
-      alert(responseName);
-      const namex = [{ name: responseName }];
-      this.$data.names = namex;
+      const result = responseName.data.name;
+      if (typeof result != undefined && result) {
+        const namex = [{ name: responseName }];
+        this.$data.names = namex;
+      }
     },
   },
 });
