@@ -40,7 +40,6 @@ export default Vue.extend({
       const responseName = await this.deleteName(name);
       const namex = [{ name: responseName }];
       this.$data.names = namex;
-      alert(index);
       this.$delete(this.names, index);
     },
   },

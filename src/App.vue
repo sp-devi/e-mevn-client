@@ -15,9 +15,10 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-              <v-card-actions  class="justify-center">
+              <v-card-actions class="justify-center">
                 <v-btn color="success" @click="findName(nameInput)">Find</v-btn>
                 <v-btn color="success" @click="addName(nameInput)">Add</v-btn>
+                <v-btn color="blue" @click="saveToFile()">Save</v-btn>
               </v-card-actions>
             </v-col>
           </v-row>
@@ -37,6 +38,12 @@ import Vue from "vue";
 import Name from "./components/Name.vue";
 import { mapActions } from "vuex";
 
+interface NameType {
+  name : string
+}
+
+const nameArray : NameType[] = [];
+
 export default Vue.extend({
   name: "App",
 
@@ -45,7 +52,7 @@ export default Vue.extend({
   },
 
   data: () => ({
-    names: [],
+    names: nameArray,
   }),
 
   methods: {
@@ -59,8 +66,6 @@ export default Vue.extend({
       } else {
         alert("No name found");
       }
-      const names = [{ name: "re" }];
-      this.$data.names = names;
     },
     ...mapActions(["insertName"]),
     async addName(name: string) {
@@ -71,9 +76,17 @@ export default Vue.extend({
       const responseName = await this.insertName(name);
       const result = responseName.data.name;
       if (typeof result != undefined && result) {
-        const namex = [{ name: responseName }];
-        this.$data.names = namex;
+        const nameObj = [{ name: responseName }];
+        this.$data.names = nameObj;
       }
+    },
+    ...mapActions(["save"]),
+    async saveToFile() {
+      if (this.$data.names.length == 0) {
+        alert("No name to save.")
+        return;
+      }
+      this.save(this.$data.names);
     },
   },
 });
