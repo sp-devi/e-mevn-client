@@ -1,7 +1,7 @@
 # e-mevn-client
 
 # About
-A simple prototype that uses Vue.js, Electron for app rendering.
+A simple CRUD prototype that uses Vue.js, Electron for app rendering.
 
 # Technologies
 Vue.JS, Electron, Vuetify.
